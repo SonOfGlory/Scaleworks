@@ -53,7 +53,7 @@ var VanillaRunOnDomReady = function() {
           }
       });
       link.appendChild(thumbnail);
-      if (!container.contains(thumbnail)) {
+      if (!container.contains(link)) {
         container.appendChild(link);
             // container.appendChild(`<a href="${fileData.url}" target="_blank"><img src="${thumbnail.src}"></a>`);
         }
