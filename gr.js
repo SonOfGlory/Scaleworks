@@ -8,7 +8,6 @@ var VanillaRunOnDomReady = function() {
   const options = {
     onUploadDone: updateForm,
     maxSize: 10 * 1024 * 1024,
-    accept: 'image/*',
     uploadInBackground: false,
   };
   const picker = client.picker(options);
@@ -44,17 +43,19 @@ var VanillaRunOnDomReady = function() {
     // If file is resizable image, resize and embed it as a thumbnail preview
     if (['jpeg', 'png', 'gif', 'docx'].indexOf(fileData.mimetype.split('/')[1]) !== -1) {
       const container = document.getElementById('thumbnail-container');
+      const link = document.createElement("a");
+      link.setAttribute("href", `${fileData.url}`);
       const thumbnail = document.getElementById('thumbnail') || new Image();
       thumbnail.id = 'thumbnail';
       thumbnail.src = client.transform(fileData.handle, { 
         resize: { 
           width: 50 
-        }
+          }
       });
-
+      link.appendChild(thumbnail);
       if (!container.contains(thumbnail)) {
-      container.appendChild(thumbnail);
-      // container.appendChild(`<a href="${fileData.url}" target="_blank"><img src="${thumbnail.src}"></a>`);
+        container.appendChild(link);
+            // container.appendChild(`<a href="${fileData.url}" target="_blank"><img src="${thumbnail.src}"></a>`);
         }
       }
     
