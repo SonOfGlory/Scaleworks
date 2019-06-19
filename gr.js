@@ -1,8 +1,8 @@
-//  TODO: Missing CoffeeScript 2
-// НАЧАЛО ФУНКЦИИ НА САЙТЕ С ДЕМКОЙ FILESTACK
+// TODO: Missing CoffeeScript 2
+// Begin of demo on FILESTACK
 //<![CDATA[
   window.addEventListener('DOMContentLoaded', VanillaRunOnDomReady = function() {
-  const yourAPIKey = "AoD7hdYBlRKK6XH0TXITOz";
+  const yourAPIKey = "ARt4bGIm6QeCXsB0w3bmtz";
   // Set up the picker
   const client = filestack.init(yourAPIKey); //yourAPIKey
   const options = {
@@ -50,6 +50,7 @@
     ) {
       const container = document.getElementById("thumbnail-container");
       const link = document.createElement("a");
+      const thumbnailDiv = document.createElement("li");
       link.setAttribute("href", `${fileData.url}`);
 
       const thumbnail = document.getElementById("thumbnail") || new Image();
@@ -59,6 +60,7 @@
           width: 50
         }
       });
+      thumbnailDiv.appendChild(link);
       link.appendChild(thumbnail);
       if (!container.contains(link)) {
         container.appendChild(link);
@@ -68,16 +70,20 @@
     // Some ugly DOM code to show some data.
 
     const name = document.createTextNode("Selected: " + fileData.filename);
+    const li = document.createElement("li");
     const url = document.createElement("a");
+    url.appendChild(li);
     url.href = fileData.url;
     url.appendChild(document.createTextNode(fileData.url));
     nameBox.appendChild(name);
+    //nameBox.classList.add("col");
     urlBox.appendChild(document.createTextNode("Uploaded to: "));
     urlBox.appendChild(url);
+    //nameBox.classList.add("col");
     }
   }
 });
-// Конец функции которую можно увидеть на https://jsfiddle.net/aj2edh1c/?utm_source=website&utm_medium=embed&utm_campaign=aj2edh1c&fbclid=IwAR2ZSVgG2NBJRU-ABPIdymisuAF1cuErFu6ms7BbqzeTPRVIrFbcyxnpTYI
+// End of expample function there https://jsfiddle.net/aj2edh1c/?utm_source=website&utm_medium=embed&utm_campaign=aj2edh1c&fbclid=IwAR2ZSVgG2NBJRU-ABPIdymisuAF1cuErFu6ms7BbqzeTPRVIrFbcyxnpTYI
 var alreadyrunflag = 0;
 
 if (document.addEventListener) {
