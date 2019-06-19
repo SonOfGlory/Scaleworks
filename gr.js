@@ -18,8 +18,6 @@
   const form = document.getElementById("pick-form");
   const fileInput = document.getElementById("fileupload");
   const pickerTrack = document.getElementById("picker");
-  const nameBox = document.getElementById("nameBox");
-  const urlBox = document.getElementById("urlBox");
 
   // Add our event listeners
 
@@ -39,47 +37,62 @@
     var fileData = result.filesUploaded
     var i
     for (var i=0; i<fileData.length; i++) {
-    const fileData = result.filesUploaded[i];
-    fileInput.value = fileData.url;
+      const fileData = result.filesUploaded[i];
+      fileInput.value = fileData.url;
+      var mainCont = document.getElementById("mainCont");
 
-    // If file is resizable image, resize and embed it as a thumbnail preview
-    if (
-      ["jpeg", "png", "gif"].indexOf(
-        fileData.mimetype.split("/")[1]
-      ) !== -1
-    ) {
-      const container = document.getElementById("thumbnail-container");
-      const link = document.createElement("a");
-      const thumbnailDiv = document.createElement("li");
-      link.setAttribute("href", `${fileData.url}`);
+      let container 
+      let thumbnailDiv
+      // If file is resizable image, resize and embed it as a thumbnail preview
+      if (
+        ["jpeg", "png", "gif", "jpg"].indexOf(
+          fileData.mimetype.split("/")[1]
+        ) !== -1
+      ) {
+        container = document.createElement("div");
+        container.classList.add("row");
+        const link = document.createElement("a");
+        thumbnailDiv = document.createElement("div");
+        thumbnailDiv.classList.add("col");
+        link.setAttribute("href", `${fileData.url}`);
 
-      const thumbnail = document.getElementById("thumbnail") || new Image();
-      thumbnail.id = "thumbnail";
-      thumbnail.src = client.transform(fileData.handle, {
-        resize: {
-          width: 50
+        const thumbnail = new Image();
+        thumbnail.id = "thumbnail";
+        thumbnail.src = client.transform(fileData.handle, {
+          resize: {
+            width: 50
+          }
+        });
+        thumbnailDiv.appendChild(link);
+        link.appendChild(thumbnail);
+        link.setAttribute("target", "_blank");
+
         }
-      });
-      thumbnailDiv.appendChild(link);
-      link.appendChild(thumbnail);
-      if (!container.contains(link)) {
-        container.appendChild(link);
-        }
-      }
+        
+      // Some ugly DOM code to show some data.
 
-    // Some ugly DOM code to show some data.
+      const name = document.createTextNode("Selected: " + fileData.filename);
+      const url = document.createElement("a");
+      url.href = fileData.url;
+      url.appendChild(document.createTextNode(fileData.url));
 
-    const name = document.createTextNode("Selected: " + fileData.filename);
-    const li = document.createElement("li");
-    const url = document.createElement("a");
-    url.appendChild(li);
-    url.href = fileData.url;
-    url.appendChild(document.createTextNode(fileData.url));
-    nameBox.appendChild(name);
-    //nameBox.classList.add("col");
-    urlBox.appendChild(document.createTextNode("Uploaded to: "));
-    urlBox.appendChild(url);
-    //nameBox.classList.add("col");
+      const nameBox = document.createElement("div");
+      nameBox.classList.add("col");
+
+      container.appendChild(thumbnailDiv)
+      container.appendChild(nameBox)
+
+
+      const urlBox = document.createElement("div");
+      urlBox.classList.add("col");
+    
+      nameBox.appendChild(name);
+      urlBox.appendChild(document.createTextNode("Uploaded to: "));
+      urlBox.appendChild(url);
+
+      container.appendChild(urlBox)
+      mainCont.appendChild(container)
+
     }
   }
 });
