@@ -68,6 +68,27 @@
         link.setAttribute("target", "_blank");
 
         }
+      // If file is DOC type, generate a thumbnail preview. However this feature requires a paid plan.
+      else if (
+        ["PDF", "PPT", "doc"].indexOf(
+          fileData.mimetype.split("/")[1]
+        ) !== -1
+      ) {
+        container = document.createElement("div");
+        container.classList.add("row");
+        const link = document.createElement("a");
+        thumbnailDiv = document.createElement("div");
+        thumbnailDiv.classList.add("col");
+        link.setAttribute("href", `${fileData.url}`);
+    
+        const thumbnail = document.getElementById("thumbnail") || new Image();
+        thumbnail.id = "thumbnail";
+        thumbnail.src = client.preview(fileData.handle, {id: "thumbnail"});
+        link.appendChild(thumbnail);
+        thumbnailDiv.appendChild(link);
+        link.appendChild(thumbnail);
+        link.setAttribute("target", "_blank");
+        }
         
       // Some ugly DOM code to show some data.
 
