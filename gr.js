@@ -2,7 +2,7 @@
 // Begin of demo on FILESTACK
 //<![CDATA[
   window.addEventListener('DOMContentLoaded', VanillaRunOnDomReady = function() {
-  const yourAPIKey = "ARt4bGIm6QeCXsB0w3bmtz";
+  const yourAPIKey = "AkNBoRSpvSU2hZtcW1OE7z";
   // Set up the picker
   const client = filestack.init(yourAPIKey); //yourAPIKey
   const options = {
